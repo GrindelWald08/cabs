@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Home, Users, FileText, BarChart3, Settings, LogIn } from "lucide-react";
+import { Menu, X, Home, Users, FileText, Camera, Phone, LogIn } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navigation = [
-  { name: "Dashboard", href: "/", icon: Home },
-  { name: "Users", href: "/users", icon: Users },
-  { name: "Articles", href: "/articles", icon: FileText },
-  { name: "Analytics", href: "/analytics", icon: BarChart3 },
-  { name: "Settings", href: "/settings", icon: Settings },
+  { name: "Home", href: "/", icon: Home },
+  { name: "Travel Packages", href: "/packages", icon: FileText },
+  { name: "Gallery", href: "/gallery", icon: Camera },
+  { name: "About", href: "/about", icon: Users },
+  { name: "Contact", href: "/contact", icon: Phone },
 ];
 
 export function Navbar() {
@@ -25,7 +25,7 @@ export function Navbar() {
             <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
               <span className="text-primary-foreground font-bold text-lg">L</span>
             </div>
-            <span className="font-bold text-xl text-foreground">LaravelApp</span>
+            <span className="font-bold text-xl text-foreground">TravelApp</span>
           </Link>
 
           {/* Desktop Navigation */}
