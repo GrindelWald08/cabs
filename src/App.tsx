@@ -12,6 +12,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Auth from "./pages/Auth";
 import AdminDashboard from "./pages/AdminDashboard";
+import UserDashboard from "./pages/UserDashboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,6 +26,24 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
   
   if (!user) {
     return <Navigate to="/auth" replace />;
+  }
+  
+  return <>{children}</>;
+}
+
+function AdminRoute({ children }: { children: React.ReactNode }) {
+  const { user, loading, isAdmin } = useAuth();
+  
+  if (loading) {
+    return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+  }
+  
+  if (!user) {
+    return <Navigate to="/auth" replace />;
+  }
+  
+  if (!isAdmin) {
+    return <Navigate to="/dashboard" replace />;
   }
   
   return <>{children}</>;
@@ -67,11 +86,19 @@ const App = () => (
                 } 
               />
               <Route 
-                path="/admin" 
+                path="/dashboard" 
                 element={
                   <ProtectedRoute>
-                    <AdminDashboard />
+                    <UserDashboard />
                   </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/admin" 
+                element={
+                  <AdminRoute>
+                    <AdminDashboard />
+                  </AdminRoute>
                 } 
               />
               <Route path="*" element={<NotFound />} />

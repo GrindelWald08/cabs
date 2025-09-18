@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Menu, X, Home, Users, FileText, Camera, Phone, LogIn, User, Settings, LogOut } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
+import { Menu, X, Home, Users, FileText, Camera, Phone, LogIn, User, Settings, LogOut, LayoutDashboard } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/hooks/useAuth";
 
@@ -69,14 +69,24 @@ export function Navbar() {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
+                  <DropdownMenuItem asChild>
+                    <Link to="/dashboard" className="flex items-center w-full">
+                      <LayoutDashboard className="w-4 h-4 mr-2" />
+                      My Dashboard
+                    </Link>
+                  </DropdownMenuItem>
                   {isAdmin && (
-                    <DropdownMenuItem asChild>
-                      <Link to="/admin" className="flex items-center w-full">
-                        <Settings className="w-4 h-4 mr-2" />
-                        Admin Dashboard
-                      </Link>
-                    </DropdownMenuItem>
+                    <>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem asChild>
+                        <Link to="/admin" className="flex items-center w-full">
+                          <Settings className="w-4 h-4 mr-2" />
+                          Admin Dashboard
+                        </Link>
+                      </DropdownMenuItem>
+                    </>
                   )}
+                  <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={handleSignOut}>
                     <LogOut className="w-4 h-4 mr-2" />
                     Sign Out
@@ -133,6 +143,12 @@ export function Navbar() {
             <div className="pt-4 space-y-2">
               {user ? (
                 <>
+                  <Link to="/dashboard" onClick={() => setIsOpen(false)}>
+                    <Button variant="outline" size="sm" className="w-full justify-start">
+                      <LayoutDashboard className="w-4 h-4 mr-2" />
+                      My Dashboard
+                    </Button>
+                  </Link>
                   {isAdmin && (
                     <Link to="/admin" onClick={() => setIsOpen(false)}>
                       <Button variant="outline" size="sm" className="w-full justify-start">
