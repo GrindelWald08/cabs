@@ -2,6 +2,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { MapPin, Star, Clock, Users, Plane, Camera, Mountain } from "lucide-react";
+import baliParadise from "@/assets/bali-paradise.jpg";
+import tokyoAdventure from "@/assets/tokyo-adventure.jpg";
+import swissAlps from "@/assets/swiss-alps.jpg";
+import santoriniRomance from "@/assets/santorini-romance.jpg";
+import africanSafari from "@/assets/african-safari.jpg";
+import parisCulture from "@/assets/paris-culture.jpg";
 
 export default function TravelPackages() {
   const packages = [
@@ -17,7 +23,7 @@ export default function TravelPackages() {
       maxGuests: 15,
       category: "Cultural",
       featured: true,
-      image: "🏛️",
+      image: baliParadise,
       highlights: ["Tanah Lot Temple", "Ubud Rice Terraces", "Traditional Dance Show", "Local Cooking Class"]
     },
     {
@@ -32,7 +38,7 @@ export default function TravelPackages() {
       maxGuests: 12,
       category: "Urban",
       featured: true,
-      image: "🏙️",
+      image: tokyoAdventure,
       highlights: ["Shibuya Crossing", "Mount Fuji Day Trip", "Sushi Making Class", "Robot Restaurant"]
     },
     {
@@ -47,7 +53,7 @@ export default function TravelPackages() {
       maxGuests: 10,
       category: "Adventure",
       featured: false,
-      image: "🏔️",
+      image: swissAlps,
       highlights: ["Jungfraujoch Excursion", "Scenic Train Rides", "Alpine Hiking", "Lake Cruises"]
     },
     {
@@ -62,7 +68,7 @@ export default function TravelPackages() {
       maxGuests: 8,
       category: "Romance",
       featured: false,
-      image: "🏖️",
+      image: santoriniRomance,
       highlights: ["Sunset in Oia", "Wine Tasting Tour", "Volcanic Island Tour", "Private Beach Access"]
     },
     {
@@ -77,7 +83,7 @@ export default function TravelPackages() {
       maxGuests: 8,
       category: "Wildlife",
       featured: true,
-      image: "🦁",
+      image: africanSafari,
       highlights: ["Big Five Safari", "Maasai Village Visit", "Hot Air Balloon", "Luxury Lodge Stay"]
     },
     {
@@ -92,7 +98,7 @@ export default function TravelPackages() {
       maxGuests: 15,
       category: "Cultural",
       featured: false,
-      image: "🗼",
+      image: parisCulture,
       highlights: ["Louvre Museum", "Eiffel Tower Dinner", "Seine River Cruise", "Versailles Palace"]
     }
   ];
@@ -127,8 +133,12 @@ export default function TravelPackages() {
         {packages.map((pkg) => (
           <Card key={pkg.id} className="overflow-hidden hover:shadow-elegant transition-smooth">
             {/* Package Image */}
-            <div className="relative h-48 bg-gradient-subtle flex items-center justify-center text-6xl">
-              {pkg.image}
+            <div className="relative h-48 overflow-hidden">
+              <img 
+                src={pkg.image} 
+                alt={pkg.title}
+                className="w-full h-full object-cover hover:scale-105 transition-smooth duration-500"
+              />
               {pkg.featured && (
                 <Badge className="absolute top-4 left-4 bg-primary text-primary-foreground">
                   Featured

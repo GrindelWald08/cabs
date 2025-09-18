@@ -2,6 +2,15 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Camera, MapPin, Calendar } from "lucide-react";
+import baliParadise from "@/assets/bali-paradise.jpg";
+import tokyoAdventure from "@/assets/tokyo-adventure.jpg";
+import swissAlps from "@/assets/swiss-alps.jpg";
+import santoriniRomance from "@/assets/santorini-romance.jpg";
+import africanSafari from "@/assets/african-safari.jpg";
+import parisCulture from "@/assets/paris-culture.jpg";
+import maldivesBeach from "@/assets/maldives-beach.jpg";
+import icelandNorthernLights from "@/assets/iceland-northern-lights.jpg";
+import amazonRainforest from "@/assets/amazon-rainforest.jpg";
 
 export default function Gallery() {
   const galleryItems = [
@@ -11,7 +20,7 @@ export default function Gallery() {
       location: "Bali, Indonesia",
       category: "Cultural",
       date: "March 2024",
-      image: "🌅",
+      image: baliParadise,
       description: "Beautiful sunrise view at Tanah Lot Temple"
     },
     {
@@ -20,7 +29,7 @@ export default function Gallery() {
       location: "Tokyo, Japan",
       category: "Urban",
       date: "February 2024",
-      image: "🌃",
+      image: tokyoAdventure,
       description: "Vibrant nightlife in Shibuya district"
     },
     {
@@ -29,7 +38,7 @@ export default function Gallery() {
       location: "Interlaken, Switzerland",
       category: "Adventure",
       date: "January 2024",
-      image: "⛰️",
+      image: swissAlps,
       description: "Breathtaking view from Jungfraujoch"
     },
     {
@@ -38,7 +47,7 @@ export default function Gallery() {
       location: "Santorini, Greece",
       category: "Romance",
       date: "March 2024",
-      image: "🏛️",
+      image: santoriniRomance,
       description: "Iconic blue domed churches of Oia"
     },
     {
@@ -47,7 +56,7 @@ export default function Gallery() {
       location: "Serengeti, Tanzania",
       category: "Wildlife",
       date: "February 2024",
-      image: "🦓",
+      image: africanSafari,
       description: "Wildlife migration in Serengeti"
     },
     {
@@ -56,7 +65,7 @@ export default function Gallery() {
       location: "Paris, France",
       category: "Cultural",
       date: "January 2024",
-      image: "🗼",
+      image: parisCulture,
       description: "Golden hour at the Eiffel Tower"
     },
     {
@@ -65,7 +74,7 @@ export default function Gallery() {
       location: "Maldives",
       category: "Beach",
       date: "March 2024",
-      image: "🏝️",
+      image: maldivesBeach,
       description: "Crystal clear waters and overwater villas"
     },
     {
@@ -74,7 +83,7 @@ export default function Gallery() {
       location: "Reykjavik, Iceland",
       category: "Adventure",
       date: "February 2024",
-      image: "🌌",
+      image: icelandNorthernLights,
       description: "Aurora Borealis dancing in the sky"
     },
     {
@@ -83,7 +92,7 @@ export default function Gallery() {
       location: "Brazil",
       category: "Wildlife",
       date: "January 2024",
-      image: "🌳",
+      image: amazonRainforest,
       description: "Lush rainforest and exotic wildlife"
     }
   ];
@@ -118,10 +127,12 @@ export default function Gallery() {
         {galleryItems.map((item) => (
           <Card key={item.id} className="overflow-hidden group hover:shadow-elegant transition-smooth cursor-pointer">
             {/* Image Container */}
-            <div className="relative h-64 bg-gradient-subtle flex items-center justify-center text-8xl overflow-hidden">
-              <div className="group-hover:scale-110 transition-smooth duration-500">
-                {item.image}
-              </div>
+            <div className="relative h-64 overflow-hidden">
+              <img 
+                src={item.image} 
+                alt={item.title}
+                className="w-full h-full object-cover group-hover:scale-110 transition-smooth duration-500"
+              />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-smooth" />
               <Badge className="absolute top-4 right-4 bg-black/50 text-white border-0">
                 {item.category}

@@ -1,6 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { MapPin, Star, Clock, Users } from "lucide-react";
+import baliParadise from "@/assets/bali-paradise.jpg";
+import tokyoAdventure from "@/assets/tokyo-adventure.jpg";
+import swissAlps from "@/assets/swiss-alps.jpg";
 
 export default function Home() {
   return (
@@ -32,7 +35,7 @@ export default function Home() {
               price: "$1,299",
               rating: 4.8,
               duration: "7 Days",
-              image: "🏝️"
+              image: baliParadise
             },
             {
               title: "Tokyo Adventure",
@@ -40,7 +43,7 @@ export default function Home() {
               price: "$1,899",
               rating: 4.9,
               duration: "10 Days",
-              image: "🗾"
+              image: tokyoAdventure
             },
             {
               title: "Swiss Alps",
@@ -48,12 +51,16 @@ export default function Home() {
               price: "$2,299",
               rating: 4.7,
               duration: "8 Days",
-              image: "🏔️"
+              image: swissAlps
             }
           ].map((destination) => (
             <Card key={destination.title} className="overflow-hidden hover:shadow-elegant transition-smooth">
-              <div className="h-48 bg-gradient-subtle flex items-center justify-center text-6xl">
-                {destination.image}
+              <div className="h-48 overflow-hidden">
+                <img 
+                  src={destination.image} 
+                  alt={destination.title}
+                  className="w-full h-full object-cover hover:scale-105 transition-smooth duration-500"
+                />
               </div>
               <CardHeader>
                 <CardTitle className="flex items-center justify-between">
