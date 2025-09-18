@@ -4,13 +4,19 @@ import { MapPin, Star, Clock, Users } from "lucide-react";
 import baliParadise from "@/assets/bali-paradise.jpg";
 import tokyoAdventure from "@/assets/tokyo-adventure.jpg";
 import swissAlps from "@/assets/swiss-alps.jpg";
+import mountRinjaniHero from "@/assets/mount-rinjani-hero.jpg";
 
 export default function Home() {
   return (
     <div className="space-y-8">
       {/* Hero Section */}
-      <section className="relative h-[500px] bg-gradient-hero rounded-lg overflow-hidden">
-        <div className="absolute inset-0 bg-black/30" />
+      <section className="relative h-[500px] rounded-lg overflow-hidden">
+        <img 
+          src={mountRinjaniHero} 
+          alt="Mount Rinjani sunrise view" 
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/40" />
         <div className="relative h-full flex items-center justify-center text-center text-white">
           <div className="max-w-4xl mx-auto px-4">
             <h1 className="text-5xl font-bold mb-4">Discover Amazing Destinations</h1>
