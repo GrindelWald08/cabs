@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Home, Users, FileText, Camera, Phone, LogIn } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Menu, X, Home, Users, FileText, Camera, Phone, LogIn, User, Settings, LogOut } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/hooks/useAuth";
 
 const navigation = [
   { name: "Home", href: "/", icon: Home },
@@ -15,6 +17,11 @@ const navigation = [
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const { user, signOut, isAdmin } = useAuth();
+
+  const handleSignOut = async () => {
+    await signOut();
+  };
 
   return (
     <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
@@ -51,12 +58,39 @@ export function Navbar() {
             })}
           </div>
 
-          {/* Login Button */}
+          {/* Auth Section */}
           <div className="hidden md:flex">
-            <Button variant="hero" size="sm">
-              <LogIn className="w-4 h-4" />
-              Login
-            </Button>
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="hero" size="sm">
+                    <User className="w-4 h-4" />
+                    Account
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  {isAdmin && (
+                    <DropdownMenuItem asChild>
+                      <Link to="/admin" className="flex items-center w-full">
+                        <Settings className="w-4 h-4 mr-2" />
+                        Admin Dashboard
+                      </Link>
+                    </DropdownMenuItem>
+                  )}
+                  <DropdownMenuItem onClick={handleSignOut}>
+                    <LogOut className="w-4 h-4 mr-2" />
+                    Sign Out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Link to="/auth">
+                <Button variant="hero" size="sm">
+                  <LogIn className="w-4 h-4" />
+                  Login
+                </Button>
+              </Link>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -96,11 +130,30 @@ export function Navbar() {
                 </Link>
               );
             })}
-            <div className="pt-4">
-              <Button variant="hero" size="sm" className="w-full">
-                <LogIn className="w-4 h-4" />
-                Login
-              </Button>
+            <div className="pt-4 space-y-2">
+              {user ? (
+                <>
+                  {isAdmin && (
+                    <Link to="/admin" onClick={() => setIsOpen(false)}>
+                      <Button variant="outline" size="sm" className="w-full justify-start">
+                        <Settings className="w-4 h-4 mr-2" />
+                        Admin Dashboard
+                      </Button>
+                    </Link>
+                  )}
+                  <Button variant="outline" size="sm" className="w-full justify-start" onClick={handleSignOut}>
+                    <LogOut className="w-4 h-4 mr-2" />
+                    Sign Out
+                  </Button>
+                </>
+              ) : (
+                <Link to="/auth" onClick={() => setIsOpen(false)}>
+                  <Button variant="hero" size="sm" className="w-full">
+                    <LogIn className="w-4 h-4" />
+                    Login
+                  </Button>
+                </Link>
+              )}
             </div>
           </div>
         </div>
