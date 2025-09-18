@@ -43,20 +43,20 @@ export const checkUserAccess = (role: UserRole): boolean => {
 // Activity logging utilities
 export const logUserActivity = async (
   userId: string,
-  activityType: string,
-  description: string,
-  metadata: Record<string, any> = {}
+  action: string,
+  resourceType: string | null = null,
+  resourceId: string | null = null,
+  details: Record<string, any> = {}
 ) => {
   try {
     const { supabase } = await import('@/integrations/supabase/client');
     
-    await supabase.from('user_activities').insert({
-      user_id: userId,
-      activity_type: activityType,
-      activity_description: description,
-      metadata,
-      ip_address: null, // Could be populated from request context
-      user_agent: navigator.userAgent,
+    await supabase.rpc('log_user_activity', {
+      p_user_id: userId,
+      p_action: action,
+      p_resource_type: resourceType,
+      p_resource_id: resourceId,
+      p_details: details
     });
   } catch (error) {
     console.error('Failed to log user activity:', error);
@@ -80,3 +80,21 @@ export const ACTIVITY_TYPES = {
 } as const;
 
 export type ActivityType = typeof ACTIVITY_TYPES[keyof typeof ACTIVITY_TYPES];
+
+// Helper function to change user role (admin only)
+export const changeUserRole = async (userId: string, newRole: UserRole) => {
+  try {
+    const { supabase } = await import('@/integrations/supabase/client');
+    
+    const { data, error } = await supabase.rpc('change_user_role', {
+      p_user_id: userId,
+      p_new_role: newRole
+    });
+
+    if (error) throw error;
+    return { success: true, data };
+  } catch (error) {
+    console.error('Failed to change user role:', error);
+    return { success: false, error };
+  }
+};

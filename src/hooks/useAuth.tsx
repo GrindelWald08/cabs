@@ -59,13 +59,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             setIsAdmin(profile.role === 'admin');
             setPermissions(getRolePermissions(profile.role));
             
-            // Log login activity
+            // Log login activity and update last login
             if (event === 'SIGNED_IN') {
-              await logUserActivity(
-                session.user.id,
-                ACTIVITY_TYPES.LOGIN,
-                'User logged in successfully'
-              );
+              // Update last login timestamp
+              await supabase.rpc('update_last_login', {
+                p_user_id: session.user.id
+              });
+              
+              // Refresh profile to get updated last_login
+              const updatedProfile = await fetchUserProfile(session.user.id);
+              if (updatedProfile) {
+                setUserProfile(updatedProfile);
+              }
             }
           }
         } else {

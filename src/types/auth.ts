@@ -7,9 +7,9 @@ export interface UserProfile {
   status: 'active' | 'inactive' | 'suspended';
   avatar_url: string | null;
   phone: string | null;
-  date_of_birth: string | null;
+  bio: string | null;
   last_login: string | null;
-  login_count: number;
+  notification_preferences: NotificationPreferences;
   preferences: Record<string, any>;
   created_at: string;
   updated_at: string;
@@ -18,38 +18,46 @@ export interface UserProfile {
 export interface UserActivity {
   id: string;
   user_id: string;
-  activity_type: string;
-  activity_description: string | null;
-  metadata: Record<string, any>;
+  action: string;
+  resource_type: string | null;
+  resource_id: string | null;
+  details: Record<string, any>;
   ip_address: string | null;
   user_agent: string | null;
   created_at: string;
 }
 
 export interface NotificationPreferences {
-  id: string;
-  user_id: string;
-  email_marketing: boolean;
-  email_bookings: boolean;
-  email_updates: boolean;
-  push_notifications: boolean;
-  sms_notifications: boolean;
-  created_at: string;
-  updated_at: string;
+  email: boolean;
+  push: boolean;
+  sms: boolean;
 }
 
 export interface UserStatistics {
   total_users: number;
   active_users: number;
   admin_users: number;
-  new_users_this_month: number;
-  total_logins: number;
+  new_users_today: number;
+  new_users_week: number;
 }
 
 export interface UserActivitySummary {
-  activity_type: string;
+  action: string;
   activity_count: number;
   last_activity: string;
+}
+
+export interface UserManagementFilters {
+  role?: UserRole | 'all';
+  status?: UserStatus | 'all';
+  search?: string;
+  dateFrom?: string;
+  dateTo?: string;
+}
+
+export interface UserWithActivity extends UserProfile {
+  activity_count: number;
+  last_activity: string | null;
 }
 
 export type UserRole = 'admin' | 'user';
